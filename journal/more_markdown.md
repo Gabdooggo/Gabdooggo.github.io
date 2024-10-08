@@ -16,3 +16,9 @@
 ## heres the link
 [this is the text that is displayed](www.example.com)
 ![This is the text](../cat with sunglasses)
+## my favorite cartoon cats
+|Name     | Facts       |
+|---------|-------------|
+|Garfield | Likes Lasang|
+|Tom      | Chases Jerr |
+|Meowth|  | Thats right |
