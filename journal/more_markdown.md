@@ -17,6 +17,7 @@
 [this is the text that is displayed](www.example.com)
 ![This is the text](../cat with sunglasses)
 ## my favorite cartoon cats
+
 |Name     | Facts       |
 |---------|-------------|
 |Garfield | Likes Lasang|
@@ -24,9 +25,13 @@
 |Meowth|  | Thats right |
 
 
-## Some cool math equations: 
-$ a^2+b^2=c^2
-### This is for the pythagorem theorem. 
-$ f(x)= /frac{20}{10}+20
+## Some cool math equations:
+
+  $a^2+b^2=c^2$
+
+### This is for the pythagorem theorem.
+ 
+ $f(x)= /frac{20}{10}+20$
+
 ### This is for function notation.
 
