@@ -31,7 +31,7 @@
 
 ### This is for the pythagorem theorem.
  
- $f(x)= /frac{20}{10}+20$
+ $f(x)= \frac{20}{10}+20$
 
 ### This is for function notation.
 
