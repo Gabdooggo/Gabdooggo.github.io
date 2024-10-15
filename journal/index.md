@@ -6,3 +6,4 @@ I will write about my coding and anything else I think off I geuss.
 
 * [My journey learning the terminal](terminal.md)
 * [Learing about markdown](more_markdown.md)
+* [Math](head-custom.html)
