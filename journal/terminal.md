@@ -10,7 +10,7 @@ Algebra II/Trig intensified is very hard. As it is very easy to make dumb mistak
 ### Businesses that I took inspiration from:
 * [Tesla](https://www.tesla.com/)
 * [Apple](https://www.apple.com/store?afid=p238%7CseIEs444j-dc_mtid_1870765e38482_pcrid_714995330286_pgrid_13945964887_pntwk_g_pchan__pexid__ptid_kwd-10778630_&cid=aos-us-kwgo-brand-apple--slid---product-)
-*[NASA](https://www.nasa.gov/)
+* [NASA](https://www.nasa.gov/)
 
 I mainly chose to take inspiration from these three businesses because they resemble the kind of business that I want to make, since they handle technology and creating inventions for the future.When I went to  Tesla, Apple, and NASA's website they all presented themsleves to be proffesional, and modern, so I decided to take the same approach with my website. I also noticed that most of their websites were  neat and organized, as well as using a lot of images, that resembled their product and symbolize what they do.
 
