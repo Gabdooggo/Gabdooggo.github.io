@@ -3,7 +3,7 @@
 background-color:yellow;
 }
 #Lua-pic{
-padding-top:100px;
+padding-top:50px;
 padding-left:50px;
 }
 #dog{
@@ -13,8 +13,15 @@ padding-left:130px;
 #text{
 padding-top:50px;
 font-weight:bold;
+font-family:Arial;
 }
 #quote{
 color:green;
 font-family:Calibri,Arial,Verdana;
+}
+#text-2{
+font-size:x-large;
+}
+#pasta-pic{
+padding-top:50px;
 }
