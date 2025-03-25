@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>grid practice</title>
+<link href="style.css" rel="stylesheet">
+<style>
+.grid-container-block {
+    display: grid;
+    grid-template-columns: 100px 100px;
+    gap: 10px;
+    background-color: lightblue;
+    margin-bottom: 20px; /* For separation */
+}
+
+.grid-container-inline {
+    display: inline-grid;
+    grid-template-columns: 100px 100px;
+    gap: 10px;
+    background-color: lightgreen;
+}
+
+.grid-item {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgray;
+}
+</style>
+</head>
+<body>
+<div class="grid-container-block">
+    <div class="grid-item">Block 1</div>
+    <div class="grid-item">Block 2</div>
+</div>
+
+<div class="grid-container-inline">
+    <div class="grid-item">Inline 1</div>
+    <div class="grid-item">Inline 2</div>
+</div>
+<div class="user-profile">
+<span class="user-profile__username"> Rob Ott</span>
+<img src="avatar.jpg" class="user-profile__avatar"/>
+<p class="user-profile__bio">
+made of metals
+likes animals 
+hates water skiing</p>
+</div>
+</body>
+</html>
