@@ -1,0 +1,13 @@
+.container{
+display:grid;
+background-color:yellow;
+grid-template-columns:auto,auto,auto;
+padding:10px;
+}
+.container > div{
+background-color: #f1f1f1;
+border: 1px solid black;
+font-size: 30px;
+padding:10px;
+text-align:center;
+}
