@@ -3,28 +3,42 @@
 int main(){
 //switch = alternative to using many "else if" statements
 // Compare one value against matching cases
-char grade;
-std::cout << "What letter grade?: ";
-std::cin >> grade;
-
-switch(grade){
-case 'A':
-std::cout << "You did great!";
+char op;
+double num1;
+double num2;
+double result;
+std::cout << "********** CALCULATOR ************* '\n'";
+std::cout << "Enter either (+ - * /.)";
+std::cin >> op;
+if(op == '+' or '*' or '-' or '/'){
+std::cout << "Enter #1: ";
+std::cin >> num1;
+std::cout << "Enter #2: ";
+std::cin >> num2;
+}
+else{
+std::cout << "That wasn't a valid response";
+}
+switch(op){
+case '+':
+result = num1 + num2;
+std::cout <<"result: " << result << '\n';
 break;
-case 'B':
-std::cout << "You did good";
+case '-':
+result = num1 - num2;
+std::cout <<"result: " << result << '\n';
 break;
-case 'C':
-std::cout << "you did okay";
+case '*':
+result = num1 * num2;
+std::cout <<"result: " << result << '\n';
 break;
-case 'D':
-std::cout << "you did not do good";
-break;
-case 'F':
-std::cout << "YOU FAILED!";
+case '/':
+result = num1 / num2;
+std::cout <<"result: " << result << '\n';
 break;
 default:
-std::cout << "Please only enter in a letter grade (A-F)";
+std::cout << "That wasn't a valid response '\n'";
+break;
 }
-
+std::cout << "********************* *************";
 return 0;}
