@@ -30,4 +30,4 @@ When I first started I thought that Wordpress would be realtively simple and eas
 * [entries](entries)
 * [index.md](index.md)
 * [more_markdown.md](more_markdown.md)
-* [Game Proposal](website/Java/Game/proposal.html)
+* [Game Proposal](file:///Users/1033053/Desktop/website/Java/Game/proposal.html)
