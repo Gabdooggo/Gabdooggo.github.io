@@ -1,44 +1,20 @@
 #include <iostream>
-
+//pointers = Variable that stores a memory address of another variable
+//Sometimes its easier to work with an address
+//& address-of operator
+// * dereference operator
 int main(){
-//switch = alternative to using many "else if" statements
-// Compare one value against matching cases
-char op;
-double num1;
-double num2;
-double result;
-std::cout << "********** CALCULATOR ************* '\n'";
-std::cout << "Enter either (+ - * /.)";
-std::cin >> op;
-if(op == '+' or '*' or '-' or '/'){
-std::cout << "Enter #1: ";
-std::cin >> num1;
-std::cout << "Enter #2: ";
-std::cin >> num2;
+int age = 21;
+std::string name = "Gabriel";
+std::string freePizzas[5] = {"P1", "P2", "P3", "P4", "P5"};
+std::string *pFree = freePizzas;
+std::string *pName = &name;
+int *pAge = &age;
+std::cout << *pName << '\n';
+std::cout << *pAge << '\n';
+std::cout << *pFree << '\n';
+
+
+
+return 0;
 }
-else{
-std::cout << "That wasn't a valid response";
-}
-switch(op){
-case '+':
-result = num1 + num2;
-std::cout <<"result: " << result << '\n';
-break;
-case '-':
-result = num1 - num2;
-std::cout <<"result: " << result << '\n';
-break;
-case '*':
-result = num1 * num2;
-std::cout <<"result: " << result << '\n';
-break;
-case '/':
-result = num1 / num2;
-std::cout <<"result: " << result << '\n';
-break;
-default:
-std::cout << "That wasn't a valid response '\n'";
-break;
-}
-std::cout << "********************* *************";
-return 0;}

@@ -1,22 +1,18 @@
 #include <iostream>
-#include <cmath>
-
+void swap(std::string &x, std::string &y);
 int main(){
-	double x = 3.14;
-	double y = 4;
-	double z;
-	//z = std::max(x, y);
-	//z = std::min(x, y);
-	//std::cout << z;
-        //z = pow(2, 4);
-	//z = sqrt(9);
-	//z = abs(-10);
-	//z = round(x);
-	//z = ceil(); alwasy rounds up
-	//z = floor(x) always rounds down
-	//cplusplus.com/reference/cmath/
-
-
-	std::cout << z;
-	return 0;
+//Memory address = a location in memory where data is stored
+//a memory address can be accesed with & (address-of operator
+std::string x = "Kool Aid";
+std::string y = "water";
+swap(x,y);
+std::cout << "X: " << x << '\n';
+std::cout << "Y: " << y << '\n';
+return 0;
+}
+void swap(std::string &x, std::string &y){
+std::string temp;
+temp = x;
+x = y;
+y = temp;
 }
