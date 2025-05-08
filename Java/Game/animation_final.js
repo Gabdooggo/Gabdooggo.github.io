@@ -1,4 +1,4 @@
-//const canvas = document.getElementById("myCanvas");
+const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
 let x = 0;
@@ -58,7 +58,7 @@ function movePlayer(){
     //is already a true/false value(boolean), so we don't need a comparison
     //this is equivalent to saying
     //if(keys['ArrowDown']==true)
-    if(keys['ArrowDown']){
+    if(keys['ArrowDown'|| "W"]){
         player.y += player.speed;
     }
     if(keys['ArrowUp']){
@@ -105,6 +105,28 @@ function moveBox(){
         }
 }
 
+function checkCollision(){
+    //this is the AABB method
+    
+    //first, I'm going to make some helper variables
+    let player_min_x = player.x - 20;
+    let player_max_x = player.x + 20;
+    let player_min_y = player.y - 20;
+    let player_max_y = player.y + 20;
+
+    let box_min_x = x;
+    let box_max_x = x + 50;
+    let box_min_y = y;
+    let box_max_y = y + 50;
+
+    if(box_max_y > player_min_y
+        && box_min_y < player_max_y
+        && box_max_x > player_min_x
+        && box_min_x < player_max_x){
+        gameRunning = false;
+    }
+}
+
 function animate() {
     //`gameRunning` tracks the game state. 
     //when it becomes false, game over
@@ -112,12 +134,12 @@ function animate() {
     //as long as gameRunning is true
     if(gameRunning){
         score++;
-
         drawRect(x,y);
         drawScore();
         movePlayer();
         drawPlayer();
         moveBox();
+        checkCollision();
     }
     //this schedules the next call of this function for 1/60
     //of a second from now

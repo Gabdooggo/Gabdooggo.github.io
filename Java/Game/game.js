@@ -1,4 +1,4 @@
-const canvas = document.getElementById("myCanvas");
+//const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
 let x = 0;
@@ -43,3 +43,4 @@ function animate() {
 
 //call our function
 animate();
+

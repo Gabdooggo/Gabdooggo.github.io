@@ -1,4 +1,4 @@
-const canvas = document.getElementById("myCanvas");
+//const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
 let x = 0;
@@ -124,3 +124,4 @@ document.addEventListener('keyup', (e) => {
 //after this first run, requestAnimationFrame() will
 //take over
 animate();
+
