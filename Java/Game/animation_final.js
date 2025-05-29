@@ -58,19 +58,34 @@ function movePlayer(){
     //is already a true/false value(boolean), so we don't need a comparison
     //this is equivalent to saying
     //if(keys['ArrowDown']==true)
-    if(keys['ArrowDown'|| "W"]){
-        player.y += player.speed;
-    }
-    if(keys['ArrowUp']){
-        player.y -= player.speed;
-    }
-    if(keys['ArrowLeft'] && 
-    player.x > 50){
-        player.x -= player.speed;
-    }
-    if(keys['ArrowRight'] && player.x < 350){
-        player.x += player.speed;
-    }
+document.addEventListener('Keydown', (event)) => {
+switch (event.key.toLowerCase()) {
+case 'w':
+player.y += player.speed;
+break;
+case 'a':
+player.x -= player.speed;
+break;
+case 's':
+player.y += player.speed;
+break;
+case 'd':
+player.x += player.speed;
+break;
+case 'ArrowDown':
+player.y += player.speed;
+break;
+case 'ArrowUp':
+player.y -= player.speed;
+break;    
+case 'ArrowLeft':
+player.x -= player.speed;
+break;
+    
+case 'ArrowRight':
+player.x += player.speed;
+break;}}
+    
     //TODO: what  happens if the player
     //goes off the edge of the screen??
     if(player.y < 0){
