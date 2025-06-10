@@ -138,8 +138,8 @@ ctx.fillRect(50, 30, meterWidth - cooldownWidth, 10);
 
 // Text
 ctx.fillStyle = "blue";
-ctx.font = "10px Arial";
-ctx.fillText("Boost", 50,10);
+ctx.font = "15px Arial";
+ctx.fillText("Boost (e)", 100,20);
 }
 //this is also an object. We'll add the keys later.
 //we access values from this kind of object
