@@ -31,6 +31,17 @@ let time = 200;
 if(collision && win){
 wins = true;
 }
+function lol(){
+ctx.clearRect(0,0, canvas.width, canvas.height);
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.font = "100px Arial";
+ctx.fillText("Womp, Womp", canvas.width/2, canvas.height/2);
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.font = "50px Arial";
+ctx.fillText("You have to make the challenge jump", canvas.width/2, canvas.height/2 + 100);
+}
 function wons(){
 ctx.clearRect(0,0, canvas.width, canvas.height);
 ctx.fillStyle = "white";
@@ -439,6 +450,7 @@ ctx.fillText("Game Over", canvas.width/2, canvas.height/2);
 
 ctx.font = "30px Arial";
 ctx.fillText("Press R to restart", canvas.width/2, canvas.height/2 + 100);
+player.speed = 0;
 gameRunning = false;
 }
 function animate(timestamp) {
@@ -484,6 +496,10 @@ if(!gameRunning && !mtutorial && !wins && !mEndTutorial){
 gameOver();}
 if(win && collision){
 wons();
+gameRunning = false;
+}
+if(win && !collision){
+lol();
 gameRunning = false;
 }
 if(justPressed['r']){
