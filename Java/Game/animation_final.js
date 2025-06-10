@@ -1,6 +1,8 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const justPressed = {};
+let animationId = null;
+let win = false;
 let mEndTutorial = false;
 let t = 120;
 let mtutorial = true;
@@ -30,6 +32,19 @@ const walls = [
 {x: 875, y: 100, width: 10, height: 700},
 {x: 1050, y: 0, width: 10, height: 600},
 {x: 1225, y: 100, width: 10, height: 700}];
+const walld = [
+{x: 0, y: 0, width: 30, height: 750}
+];
+function wons(){
+ctx.clearRect(0,0, canvas.width, canvas.height);
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.font = "100px Arial";
+ctx.fillText("Congrats, You Won!", canvas.width/2, canvas.height/2);
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.font = "50px Arial";
+ctx.fillText("Press 'r' to restart!", canvas.width/2, canvas.height/2 + 100);}
 function tutorial(){
 //Text for the rules
 ctx.fillStyle = "white";
@@ -57,6 +72,11 @@ ctx.fillText("Thanks for reading the tutorial!", canvas.width/2, canvas.height/2
 function drawWalls(){
 walls.forEach(wall => {
 ctx.fillStyle = "red";
+ctx.fillRect(wall.x, wall.y, wall.width, wall.height);
+});}
+function drawWalld(){
+walld.forEach(wall => {
+ctx.fillStyle = "gold";
 ctx.fillRect(wall.x, wall.y, wall.width, wall.height);
 });}
 //this is also an object. We'll add the keys later.
@@ -135,6 +155,31 @@ function checkWallCollision() {
 
         if (isColliding) {
             gameRunning = false;
+	player.speed = 0;
+        }
+    }
+}
+function gcheckWallCollision() {
+    for (let wall of walld) {
+        const playerMinX = player.x - 20;
+        const playerMaxX = player.x + 20;
+        const playerMinY = player.y - 20;
+        const playerMaxY = player.y + 20;
+
+        const wallMinX = wall.x;
+        const wallMaxX = wall.x + wall.width;
+        const wallMinY = wall.y;
+        const wallMaxY = wall.y + wall.height;
+
+        const isColliding = (
+            playerMaxX > wallMinX &&
+            playerMinX < wallMaxX &&
+            playerMaxY > wallMinY &&
+            playerMinY < wallMaxY
+        );
+
+        if (isColliding) {
+            win = true;
         }
     }
 }
@@ -148,7 +193,6 @@ function moveBox(){
         // This code handles the position of the bouncing box.
         x = x + dx;
         y = y + dy;
-
         if(x > 1430){
             dx = dx * -1;
         }
@@ -182,6 +226,10 @@ function checkCollision(){
         && box_max_x > player_min_x
         && box_min_x < player_max_x){
         gameRunning = false;
+	dy = 0;
+	dx = 0;
+	player.speed = 0;
+	
     }
 }
 function resetGame(){
@@ -189,10 +237,15 @@ if(animationId){
 cancelAnimationFrame(animationId);
 }
 gameRunning = true;
+win = false;
 player.speed = 7;
 score = 0;
 player.x = 1400;
 player.y = 200;
+dx = 10;
+dy = -2;
+y = 0;
+x = 0;
 requestAnimationFrame(animate);
 }
 function loadLevel(levelIndex){
@@ -200,6 +253,7 @@ const level = levels[levelIndex];
 player.x = level.playerStart.x;
 player.y = level.playerStart.y;}
 function gameOver(){
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 ctx.fillStyle = "white";
 ctx.font = "100px Arial";
 ctx.textAlign = "center";
@@ -239,16 +293,22 @@ gameRunning = true;
         moveBox();
         checkCollision();
        checkWallCollision();
+	drawWalld();
+	gcheckWallCollision();
+
     }
-if(!gameRunning && !mtutorial && !mEndTutorial){
-gameOver();
-return;}
+if(!gameRunning && !mtutorial && !mEndTutorial && !win){
+gameOver();}
+if(win){
+wons();
+gameRunning = false;
+}
 if(justPressed['r']){
 resetGame();
 }
     //this schedules the next call of this function for 1/60
     //of a second from now
-    requestAnimationFrame(animate);
+   animationId = requestAnimationFrame(animate);
 }
 
 //This is the "event listner" that we'll attach to the DOM
@@ -266,7 +326,7 @@ if(!gameRunning && !mtutorial && key != 'r') return;
 if(key === 'r' && !mEndTutorial && !mtutorial){
 console.log("Restart key pressed");
 resetGame();
-return
+return;
 }
 if(!keys[e.key]){
 justPressed[e.key] = true;
@@ -291,6 +351,4 @@ keys[e.key] = false;
 //after this first run, requestAnimationFrame() will
 //take over
 animate();{
-drawWalls();
-checkWallCollision();
 }

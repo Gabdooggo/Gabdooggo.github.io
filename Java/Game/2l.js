@@ -64,7 +64,7 @@ const player = {
     x : 1400,
     y : 680,
     color: 'blue',
-    speed: 7
+    speed: 10
 };
 const walls = [
 {x: 0, y:680, width: 1350, height: 20}
