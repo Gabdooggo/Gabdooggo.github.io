@@ -1,12 +1,16 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
+const justPressed = {};
+let mEndTutorial = false;
+let t = 120;
+let mtutorial = true;
 let currentLevel = 0;
 let x = 0;
 let dx = 10;
 let y = 0;
 let dy =2; 
 let score = 0;
-let gameRunning = true;
+let gameRunning = false;
 
 //this is an object
 //we access values in an object like  this:
@@ -26,6 +30,30 @@ const walls = [
 {x: 875, y: 100, width: 10, height: 700},
 {x: 1050, y: 0, width: 10, height: 600},
 {x: 1225, y: 100, width: 10, height: 700}];
+function tutorial(){
+//Text for the rules
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.font = "100px Arial";
+ctx.fillText("Rules:", canvas.width/2, canvas.height/2 - 100);
+
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.font = "25px Arial";
+ctx.fillText("Use arrow up key to go up, arrow left key to go left, arrow right key to go to the right, and arrow down key to go down", canvas.width/2, canvas.height/2);
+
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.font = "40px Arial";
+ctx.fillText("type 'e' to exit the tutorial, and it will also boost your jump in the next level", canvas.width/2, canvas.height/2 +100);
+}
+function endTutorial(){
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.font = "100px Arial";
+ctx.fillText("Thanks for reading the tutorial!", canvas.width/2, canvas.height/2);
+}
+
 function drawWalls(){
 walls.forEach(wall => {
 ctx.fillStyle = "red";
@@ -156,12 +184,48 @@ function checkCollision(){
         gameRunning = false;
     }
 }
+function resetGame(){
+if(animationId){
+cancelAnimationFrame(animationId);
+}
+gameRunning = true;
+player.speed = 7;
+score = 0;
+player.x = 1400;
+player.y = 200;
+requestAnimationFrame(animate);
+}
 function loadLevel(levelIndex){
 const level = levels[levelIndex];
 player.x = level.playerStart.x;
 player.y = level.playerStart.y;}
+function gameOver(){
+ctx.fillStyle = "white";
+ctx.font = "100px Arial";
+ctx.textAlign = "center";
+ctx.fillText("Game Over", canvas.width/2, canvas.height/2);
+
+ctx.font = "30px Arial";
+ctx.fillText("Press R to restart", canvas.width/2, canvas.height/2 + 100);
+}
+
 function animate() {
-    //`gameRunning` tracks the game state. 
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+if(mtutorial){
+tutorial();
+if(justPressed['e']){
+mEndTutorial = true;
+mtutorial = false;
+delete justPressed['e'];}}
+if(mEndTutorial){
+endTutorial();
+t--;}
+if(t <= 0){
+mEndTutorial = false;
+gameRunning = true;
+}
+//`gameRunning` tracks the game state. 
     //when it becomes false, game over
     //so we'll only update score, move shapes, etc
     //as long as gameRunning is true
@@ -176,6 +240,12 @@ function animate() {
         checkCollision();
        checkWallCollision();
     }
+if(!gameRunning && !mtutorial && !mEndTutorial){
+gameOver();
+return;}
+if(justPressed['r']){
+resetGame();
+}
     //this schedules the next call of this function for 1/60
     //of a second from now
     requestAnimationFrame(animate);
@@ -190,13 +260,31 @@ function handleKeyPress(e){
     keys[e.key] = true;
 }
 
-document.addEventListener('keydown', handleKeyPress);
-
+document.addEventListener('keydown', (e) =>{
+const key = e.key.toLowerCase();
+if(!gameRunning && !mtutorial && key != 'r') return;
+if(key === 'r' && !mEndTutorial && !mtutorial){
+console.log("Restart key pressed");
+resetGame();
+return
+}
+if(!keys[e.key]){
+justPressed[e.key] = true;
+}
+if(e.key === 'e' && !keys['e']){
+justPressed['e'] = true;
+keys['e'] = true;
+}
+keys[e.key] = true;
+});
 //This is a shorthand way to define and use a function
 // at the same time. We call this
 //an "arrow function"
 document.addEventListener('keyup', (e) => {
-    keys[e.key] = false;
+if(e.key === 'e'){
+keys[e.key] = false;
+}
+keys[e.key] = false;
 });
 
 //call our animate function the first time

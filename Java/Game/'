@@ -6,7 +6,7 @@ let animationId = null;
 let lastTime = null;
 let collision = false;
 let win = false;
-let t = 120;
+let t = 180;
 let mEndTutorial = false;
 let mtutorial = true;
 let minBoostCooldown = 0;
@@ -27,7 +27,6 @@ let time = 200;
 //we access values in an object like  this:
 //player.x 
 function wons(){
-ctx.clearRect(0,0, canvas.width, canvas.height);
 ctx.fillStyle = "white";
 ctx.textAlign = "center";
 ctx.font = "100px Arial";
@@ -56,8 +55,8 @@ ctx.fillText("type 'e' to exit the tutorial, and it also boosts your jump in gam
 function endTutorial(){
 ctx.fillStyle = "white";
 ctx.textAlign = "center";
-ctx.font = "100px Arial";
-ctx.fillText("Thanks for reading the tutorial!", canvas.width/2, canvas.height/2);
+ctx.font = "200px Arial";
+ctx.fillText("Thanks for reading the tutorial", canvas.width/2, canvas.height/2);
 }
 const player = {
     //key:value pair
@@ -149,7 +148,7 @@ ctx.fillStyle = player.color;
 //values inside the `keys` object. We check each of
 //ArrowUp, ArrowDown, etc, and move the player accordingly
 function movePlayer(deltaTime){
-const PLAYER_SPEED = 350; // pixels per second
+const PLAYER_SPEED = 420; // pixels per second
 const moveAmount = PLAYER_SPEED * deltaTime;
 const safeDeltaTime = (deltaTime > 0.1) ? 0.016 : deltaTime;
     //note this if statement is kind of interesting. keys['ArrowDown']
@@ -185,7 +184,7 @@ jump = 400;
 time = 400;
 }}
     if(justPressed['ArrowUp']&& jump >= 30){
-        player.y -= player.speed;
+        player.y -= moveAmount;
 	jump -= player.speed;
 
     }
@@ -207,10 +206,10 @@ if(time === 200 || time > 200){
 player.speed = 7;
 }
     if(keys['ArrowLeft'] && player.x > -15){
-        player.x -= player.speed;
+        player.x -= moveAmount;
     }
     if(keys['ArrowRight'] && player.x < 1430){
-        player.x += player.speed;
+        player.x += moveAmount;
     }}
     //TODO: what  happens if the player
     //goes off the edge of the screen??
@@ -276,7 +275,7 @@ function checkWallgCollision() {
 }
         if(time < 10){
 player.y += gravity;
-PLAYER_SPEED = 0;
+player.speed = 0;
 }
         if(isColliding && jump >= 150 && jump  <= 200){
 player.y -= gravity;
@@ -327,7 +326,7 @@ const isLanding = (player.y + 20) - wall.y < 10 && player.y < wall.y;
 }
         if(time < 10){
 player.y += gravity;
-PLAEYER_SPEED = 0;
+player.speed = 0;
 }
         if(isColliding && jump >= 150 && jump  <= 200){
 player.y -= gravity;
@@ -335,6 +334,15 @@ player.y -= gravity;
         if (!isColliding && player.y < 680) {
             player.y += gravity;
 }
+}
+}
+function won(){
+if(win && collision && gameRunning{
+gameRunning = false;
+wons();
+}
+if(justPressed['r']){
+resetGame();
 }
 }
 function checkWallCollisions() {
@@ -374,7 +382,7 @@ if (isColliding) {
 }
 	if(time < 10){
 player.y += gravity;
-PLAYER_SPEED = 0;
+player.speed = 0;
 }
 	if(isColliding && jump >= 150 && jump  <= 200){
 player.y -= gravity;
@@ -389,7 +397,6 @@ if(animationId){
 cancelAnimationFrame(animationId);
 }
 gameRunning = true;
-player.speed = 7;
 score = 0;
 player.x = 1400;
 player.y = 680;
@@ -410,9 +417,7 @@ function drawScore(){
     ctx.font = "10px Arial";
     ctx.fillText(score, 10,10);
 }
-
 function gameOver(){
-ctx.clearRect(0, 0, canvas.width, canvas.height);
 ctx.fillStyle = "white";
 ctx.font = "100px Arial";
 ctx.textAlign = "center";
@@ -420,7 +425,6 @@ ctx.fillText("Game Over", canvas.width/2, canvas.height/2);
 
 ctx.font = "30px Arial";
 ctx.fillText("Press R to restart", canvas.width/2, canvas.height/2 + 100);
-gameRunning = false;
 }
 function animate(timestamp) {
 if(!lastTime){
@@ -438,14 +442,14 @@ tutorial();
 if(justPressed['e']){
 mEndTutorial = true;
 mtutorial = false;
-delete justPressed['e'];}}
+delete justPressed['e'];
+
+}
 if(mEndTutorial){
 endTutorial();
-t--;}
-if(t <= 0){
-mEndTutorial = false;
 gameRunning = true;
-}
+}}
+
     if(gameRunning){
         score++;
         drawScore();
@@ -460,31 +464,23 @@ gameRunning = true;
 	gwalls();
 	checkWallgCollision();
 	drawWallp();
+	won();
    }
-if(!gameRunning && !mtutorial && !win && !mEndTutorial){
-gameOver();}
-if(win && collision){
-wons();
-gameRunning = false;
+if(!gameRunning && !mtutorial && !win){
+gameOver();
 }
-if(justPressed['r']){
-resetGame();
-}
-
 animationId = requestAnimationFrame(animate);
     //this schedules the next call of this function for 1/60    //of a second from now    
 }
+
 //This is the "event listner" that we'll attach to the DOM
 //it automatically receives an input, e, which is the event
 //and includes properties like which key was pressed 
 
 document.addEventListener('keydown',(e) => {
-const key = e.key.toLowerCase();
-if(!gameRunning && !mtutorial && key != 'r') return;
-if(key === 'r' && !mEndTutorial && !mtutorial){
+if(e.key.toLowerCase() === 'r' && !gameRunning && !mtutorial){
 console.log("Restart key pressed");
 resetGame();
-return;
 }
 if(!keys[e.key]){
 justPressed[e.key] = true;
