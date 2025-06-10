@@ -41,6 +41,10 @@ ctx.fillStyle = "white";
 ctx.textAlign = "center";
 ctx.font = "50px Arial";
 ctx.fillText("You have to make the challenge jump", canvas.width/2, canvas.height/2 + 100);
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.font = "50px Arial";
+ctx.fillText("Press R to restart", canvas.width/2, canvas.height/2 + 200);
 }
 function wons(){
 ctx.clearRect(0,0, canvas.width, canvas.height);
@@ -51,7 +55,7 @@ ctx.fillText("Congrats, You Won!", canvas.width/2, canvas.height/2);
 ctx.fillStyle = "white";
 ctx.textAlign = "center";
 ctx.font = "50px Arial";
-ctx.fillText("Press 'r' to restart!", canvas.width/2, canvas.height/2 + 100);}
+ctx.fillText("Press R to restart!", canvas.width/2, canvas.height/2 + 100);}
 function tutorial(){
 //Text for the rules
 ctx.fillStyle = "white";
@@ -67,7 +71,7 @@ ctx.fillText("Use arrow up key to jump up, arrow left key to go left, and arrow 
 ctx.fillStyle = "white";
 ctx.textAlign = "center";
 ctx.font = "50px Arial";
-ctx.fillText("type 'e' to exit the tutorial, and it also boosts your jump in game", canvas.width/2, canvas.height/2 +100);
+ctx.fillText("type E to exit the tutorial, and it also boosts your jump in game", canvas.width/2, canvas.height/2 +100);
 }
 function endTutorial(){
 ctx.fillStyle = "white";
@@ -448,7 +452,7 @@ ctx.font = "100px Arial";
 ctx.textAlign = "center";
 ctx.fillText("Game Over", canvas.width/2, canvas.height/2);
 
-ctx.font = "30px Arial";
+ctx.font = "50px Arial";
 ctx.fillText("Press R to restart", canvas.width/2, canvas.height/2 + 100);
 player.speed = 0;
 gameRunning = false;
