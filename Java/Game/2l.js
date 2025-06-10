@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 const justPressed = {};
 const maxBoostCooldown = 300; // 5 seconds (300 frames at 60fps)
 let up = false;
+let speed = 1;
 let animationId = null;
 let lastTime = null;
 let collision = false;
@@ -212,7 +213,7 @@ time = 400;
 if(justPressed['ArrowUp'] && jump < 200){
 time -= player.speed;
 }
-if(jump <= 30 && player.y < 680 && !up){
+if(jump <= 30 && player.y < 680){
 player.y += gravity;
 }
 if(jump <= 80 && player.y < 680){
@@ -288,26 +289,31 @@ function checkWallgCollision() {
         player.speed = 7;
         usedDown  = false;
         onPlatform = true;
-	up = false;
     } else {
         // Colliding from side or below
         player.y += player.speed;
         time -= player.speed;
     }
 }
-if(!player.y > 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
-player.y += 10;
-up = true;
-}
         if(time < 10){
 player.y += gravity;
 player.speed = 0;
 }
-        if(isColliding && jump >= 150 && jump  <= 200){
+if(player.y <= 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
+player.y += speed;
+}
+if(up){
+speed = 0;
+}
+        if(isColliding && jump <= 30 && jump  <= 200){
+player.y -= speed * 20;
 player.y -= gravity;
+up = true;
 }
         if (!isColliding && player.y < 680) {
             player.y += gravity;
+	up = false;
+	speed = 1;
 }
 
          
@@ -344,7 +350,6 @@ const isLanding = (player.y + 20) - wall.y < 10 && player.y < wall.y;
         player.speed = 7;
         usedDown  = false;
         onPlatform = true;
-	up = false;
     } else {
         // Colliding from side or below
         player.y += player.speed;
@@ -355,15 +360,22 @@ const isLanding = (player.y + 20) - wall.y < 10 && player.y < wall.y;
 player.y += gravity;
 player.speed = 0;
 }
-if(!player.y > 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
-player.y += 10;
+if(player.y <= 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
+player.y += speed;
+}
+        if(isColliding && jump >= 30 && jump  <= 200){
+player.y -= speed * 20;
+player.y -= gravity;
 up = true;
 }
-        if(isColliding && jump >= 150 && jump  <= 200){
-player.y -= gravity;
+if(up){
+speed = 0;
 }
         if (!isColliding && player.y < 680) {
-            player.y += gravity;
+           
+ player.y += gravity;
+speed = 1;
+	up = false;
 }
 }
 }
@@ -406,15 +418,21 @@ if (isColliding) {
 player.y += gravity;
 player.speed = 0;
 }
-if(!player.y > 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
-player.y += 10;
+if(player.y <= 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
+player.y += speed;
+}
+	if(isColliding && jump <= 30  && jump  <= 200){
+player.y -= speed * 20;
+player.y -= gravity;
 up = true;
 }
-	if(isColliding && jump >= 150 && jump  <= 200){
-player.y -= gravity;
+if(up){
+speed = 0;
 }
 	if (!isColliding && player.y < 680) {
-	    player.y += gravity;
+up = false;
+speed = 1;	   
+ player.y += gravity;
 }
     }
 }
