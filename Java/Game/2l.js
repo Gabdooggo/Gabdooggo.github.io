@@ -2,9 +2,11 @@ const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const justPressed = {};
 const maxBoostCooldown = 300; // 5 seconds (300 frames at 60fps)
+let up = false;
 let animationId = null;
 let lastTime = null;
 let collision = false;
+let wins = false;
 let win = false;
 let t = 120;
 let mEndTutorial = false;
@@ -26,6 +28,9 @@ let time = 200;
 //this is an object
 //we access values in an object like  this:
 //player.x 
+if(collision && win){
+wins = true;
+}
 function wons(){
 ctx.clearRect(0,0, canvas.width, canvas.height);
 ctx.fillStyle = "white";
@@ -64,7 +69,7 @@ const player = {
     x : 1400,
     y : 680,
     color: 'blue',
-    speed: 10
+    speed: 7
 };
 const walls = [
 {x: 0, y:680, width: 1350, height: 20}
@@ -189,13 +194,10 @@ time = 400;
 	jump -= player.speed;
 
     }
-if(!justPressed['ArrowUp'] && jump <= 30 || !justPressed['Arrowup'] && jump === 200){
-player.y += 5;
-}
 if(jump < 200){
 time -= player.speed;
 }
-if(jump <= 30 && player.y < 680){
+if(jump <= 30 && player.y < 680 && !up){
 player.y += gravity;
 }
 if(jump <= 80 && player.y < 680){
@@ -271,15 +273,20 @@ function checkWallgCollision() {
         player.speed = 7;
         usedDown  = false;
         onPlatform = true;
+	up = false;
     } else {
         // Colliding from side or below
         player.y += player.speed;
         time -= player.speed;
     }
 }
+if(!player.y > 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
+player.y += 10;
+up = true;
+}
         if(time < 10){
 player.y += gravity;
-PLAYER_SPEED = 0;
+player.speed = 0;
 }
         if(isColliding && jump >= 150 && jump  <= 200){
 player.y -= gravity;
@@ -322,6 +329,7 @@ const isLanding = (player.y + 20) - wall.y < 10 && player.y < wall.y;
         player.speed = 7;
         usedDown  = false;
         onPlatform = true;
+	up = false;
     } else {
         // Colliding from side or below
         player.y += player.speed;
@@ -331,6 +339,10 @@ const isLanding = (player.y + 20) - wall.y < 10 && player.y < wall.y;
         if(time < 10){
 player.y += gravity;
 PLAEYER_SPEED = 0;
+}
+if(!player.y > 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
+player.y += 10;
+up = true;
 }
         if(isColliding && jump >= 150 && jump  <= 200){
 player.y -= gravity;
@@ -377,7 +389,11 @@ if (isColliding) {
 }
 	if(time < 10){
 player.y += gravity;
-PLAYER_SPEED = 0;
+player.speed = 0;
+}
+if(!player.y > 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
+player.y += 10;
+up = true;
 }
 	if(isColliding && jump >= 150 && jump  <= 200){
 player.y -= gravity;
@@ -464,7 +480,7 @@ gameRunning = true;
 	checkWallgCollision();
 	drawWallp();
    }
-if(!gameRunning && !mtutorial && !win && !mEndTutorial){
+if(!gameRunning && !mtutorial && !wins && !mEndTutorial){
 gameOver();}
 if(win && collision){
 wons();
