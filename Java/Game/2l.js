@@ -189,6 +189,9 @@ time = 400;
 	jump -= player.speed;
 
     }
+if(!justPressed['ArrowUp'] && jump <= 30 || !justPressed['Arrowup'] && jump === 200){
+player.y += 5;
+}
 if(jump < 200){
 time -= player.speed;
 }
