@@ -299,22 +299,26 @@ function checkWallgCollision() {
 player.y += gravity;
 player.speed = 0;
 }
-if(player.y <= 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
+if(player.y <= 680 && !isColliding && !justPressed['ArrowUp'] && jump <= 200){
 player.y += speed;
 }
 if(up){
 speed = 0;
 }
-        if(isColliding && jump <= 30 && jump  <= 200){
+        if(isColliding && jump <= 30 && jump <= 200){
 player.y -= speed * 20;
 player.y -= gravity;
 up = true;
 }
-        if (!isColliding && player.y < 680) {
-            player.y += gravity;
-	up = false;
-	speed = 1;
+if(!isColliding && player.y < 680 && player.y > wallMaxY && !justPressed['ArrowUp']){
+up = false;
+speed = Math.min(speed + 0.01, 1);
+player.y -= gravity;
 }
+        if (!isColliding && player.y < 680) {
+ player.y += gravity;
+}
+
 
          
         
@@ -360,10 +364,10 @@ const isLanding = (player.y + 20) - wall.y < 10 && player.y < wall.y;
 player.y += gravity;
 player.speed = 0;
 }
-if(player.y <= 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
+if(player.y <= 680 && !isColliding && !justPressed['ArrowUp'] && jump <= 200){
 player.y += speed;
 }
-        if(isColliding && jump >= 30 && jump  <= 200){
+        if(isColliding && jump >= 30 && jump <= 200){
 player.y -= speed * 20;
 player.y -= gravity;
 up = true;
@@ -371,12 +375,15 @@ up = true;
 if(up){
 speed = 0;
 }
-        if (!isColliding && player.y < 680) {
-           
- player.y += gravity;
-speed = 1;
-	up = false;
+if(!isColliding && player.y < 680 && player.y > wallMaxY && !justPressed['ArrowUp']){
+up = false;
+speed = Math.min(speed + 0.01, 1);
+player.y -= gravity;
 }
+        if (!isColliding && player.y < 680) {
+ player.y += gravity;
+}
+
 }
 }
 function checkWallCollisions() {
@@ -418,20 +425,24 @@ if (isColliding) {
 player.y += gravity;
 player.speed = 0;
 }
-if(player.y <= 680 && !isColliding && !justPressed['ArrowUp'] && (jump <= 30 || jump === 200)){
+if(player.y <= 680 && !isColliding && !justPressed['ArrowUp'] && jump <= 200 && !up){
 player.y += speed;
 }
-	if(isColliding && jump <= 30  && jump  <= 200){
+	if(isColliding && jump <= 30  && jump <= 200 && player.y < wallMaxY){
 player.y -= speed * 20;
 player.y -= gravity;
 up = true;
 }
 if(up){
 speed = 0;
+
+}
+if(!isColliding && player.y < 680 && player.y > wallMaxY && !justPressed['ArrowUp']){
+up = false;
+speed = Math.min(speed + 0.01, 1);
+player.y -= gravity;
 }
 	if (!isColliding && player.y < 680) {
-up = false;
-speed = 1;	   
  player.y += gravity;
 }
     }
