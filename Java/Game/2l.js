@@ -311,12 +311,12 @@ player.y -= gravity;
 up = true;
 }
 if(!isColliding && player.y < 680 && player.y > wallMaxY && !justPressed['ArrowUp']){
-up = false;
-speed = Math.min(speed + 0.01, 1);
 player.y -= gravity;
 }
         if (!isColliding && player.y < 680) {
  player.y += gravity;
+up = false;
+speed = Math.min(speed + 0.01, 1);
 }
 
 
@@ -376,12 +376,12 @@ if(up){
 speed = 0;
 }
 if(!isColliding && player.y < 680 && player.y > wallMaxY && !justPressed['ArrowUp']){
-up = false;
-speed = Math.min(speed + 0.01, 1);
 player.y -= gravity;
 }
         if (!isColliding && player.y < 680) {
  player.y += gravity;
+up = false;
+speed = Math.min(speed + 0.01, 1);
 }
 
 }
@@ -428,6 +428,9 @@ player.speed = 0;
 if(player.y <= 680 && !isColliding && !justPressed['ArrowUp'] && jump <= 200 && !up){
 player.y += speed;
 }
+if(justPressed['ArrowUp'] && jump <= 30){
+player.y += speed;
+}
 	if(isColliding && jump <= 30  && jump <= 200 && player.y < wallMaxY){
 player.y -= speed * 20;
 player.y -= gravity;
@@ -438,12 +441,12 @@ speed = 0;
 
 }
 if(!isColliding && player.y < 680 && player.y > wallMaxY && !justPressed['ArrowUp']){
-up = false;
-speed = Math.min(speed + 0.01, 1);
 player.y -= gravity;
 }
 	if (!isColliding && player.y < 680) {
  player.y += gravity;
+up = false;
+speed = Math.min(speed + 0.01, 1);
 }
     }
 }
@@ -535,9 +538,6 @@ if(win && !collision){
 lol();
 gameRunning = false;
 }
-if(justPressed['r']){
-resetGame();
-}
 
 animationId = requestAnimationFrame(animate);
     //this schedules the next call of this function for 1/60    //of a second from now    
@@ -548,7 +548,7 @@ animationId = requestAnimationFrame(animate);
 
 document.addEventListener('keydown',(e) => {
 const key = e.key.toLowerCase();
-if(!gameRunning && !mtutorial && key != 'r') return;
+if(!gameRunning && mtutorial && mEndTutorial && key != 'r') return;
 if(key === 'r' && !mEndTutorial && !mtutorial){
 console.log("Restart key pressed");
 resetGame();
